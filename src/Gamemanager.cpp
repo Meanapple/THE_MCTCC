@@ -16,11 +16,7 @@ namespace mctcc
     Gamemanager::Gamemanager()
     {
         // Init SDL
-        test = new b2Vec2(1200,5);
-        std::cout << test->x << std::endl;
-        test->Normalize();
-        std::cout << test->x << std::endl;
-        delete test;
+        gravity = new b2Vec2(0, -2);
         initializeSDL();
     }
 

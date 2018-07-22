@@ -23,7 +23,7 @@ namespace mctcc {
         void closeSDL();
 
     private:
-        b2Vec2* test;
+        b2Vec2* gravity;
 
         SDL_Renderer* m_renderer;
         SDL_Window* m_window;
