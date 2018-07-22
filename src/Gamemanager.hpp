@@ -7,6 +7,8 @@
 
 #include <SDL.h>
 
+#include <Box2D/Box2D.h>
+
 namespace mctcc {
 
     class Gamemanager {
@@ -21,6 +23,8 @@ namespace mctcc {
         void closeSDL();
 
     private:
+        b2Vec2* test;
+
         SDL_Renderer* m_renderer;
         SDL_Window* m_window;
     };

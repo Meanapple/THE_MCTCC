@@ -16,6 +16,11 @@ namespace mctcc
     Gamemanager::Gamemanager()
     {
         // Init SDL
+        test = new b2Vec2(1200,5);
+        std::cout << test->x << std::endl;
+        test->Normalize();
+        std::cout << test->x << std::endl;
+        delete test;
         initializeSDL();
     }
 
@@ -73,26 +78,26 @@ namespace mctcc
         }
     }
 
-void Gamemanager::closeSDL()
-{
-    // Destroy window and renderer
-
-    if(m_renderer)
+    void Gamemanager::closeSDL()
     {
-        SDL_DestroyRenderer(m_renderer);
-        m_renderer = 0;
+        // Destroy window and renderer
+
+        if(m_renderer)
+        {
+            SDL_DestroyRenderer(m_renderer);
+            m_renderer = 0;
+        }
+
+
+        if(m_window)
+        {
+            SDL_DestroyWindow(m_window);
+            m_window = 0;
+        }
+
+        // Quit SDL and SDL_Image
+        IMG_Quit();
+        SDL_Quit();
     }
-
-
-    if(m_window)
-    {
-        SDL_DestroyWindow(m_window);
-        m_window = 0;
-    }
-
-    // Quit SDL and SDL_Image
-    IMG_Quit();
-    SDL_Quit();
-}
 
 }
