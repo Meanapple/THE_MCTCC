@@ -23,7 +23,7 @@ namespace mctcc
         b2PolygonShape box;
         box.SetAsBox(2,2);
         fixture.shape = &box;
-        fixture.density = 1;
+        fixture.density = 2;
 
         Sprite* spr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,500,500), create_rect(0,0,500,500), nullptr);
 
