@@ -8,9 +8,10 @@
 #include <SDL.h>
 
 #include <Box2D/Box2D.h>
+#include "Scene.hpp"
 
 namespace mctcc {
-
+    class Scene;
     class Gamemanager {
     public:
         /// Initialisiert SDL, startet Startup Screen
@@ -23,23 +24,24 @@ namespace mctcc {
         void closeSDL();
         /// Game Loop
         void run();
+        /// Ends last scene and starts the new one
+        void start_new_scene(Scene* scene);
+        /// Ends last scene
+        void end_current_scene();
 
     private:
         /// Controller Support
         bool controller_used = false;
         SDL_GameController* game_controller;
 
-        /// Normal Gravity
-        b2Vec2* gravity;
-
-        /// Main World
-        b2World* world;
-
         /// SDL Renderer
         SDL_Renderer* m_renderer;
 
         /// SDL Window
         SDL_Window* m_window;
+
+        /// Currently Active Scene
+        Scene* m_scene;
     };
 }
 

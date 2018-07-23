@@ -39,7 +39,7 @@ find_package(BOX2D REQUIRED)
 include_directories(${BOX2D_INCLUDE_DIR})
 
 # Build executable
-add_executable(mctcc src/main.cpp ${MGTGG_SOURCES} src/Gamemanager.cpp src/Gamemanager.hpp src/Entity.cpp src/Entity.hpp)
+add_executable(mctcc src/main.cpp ${MGTGG_SOURCES} src/Gamemanager.cpp src/Gamemanager.hpp src/Entity.cpp src/Entity.hpp src/Scene.cpp src/Scene.hpp src/Config.cpp src/Config.hpp src/Util.cpp src/Util.hpp)
 target_link_libraries(mctcc ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY} ${SDL2_TTF_LIBRARY} ${SDL2_MIXER_LIBRARY})
 target_link_libraries(mctcc ${BOX2D_LIBRARY})
 target_link_libraries(mctcc m)

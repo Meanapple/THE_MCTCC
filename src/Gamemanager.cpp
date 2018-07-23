@@ -2,6 +2,7 @@
 // Created by jan on 22.07.18.
 //
 
+#include "Config.hpp"
 #include "Gamemanager.hpp"
 #include "Entity.hpp"
 
@@ -17,8 +18,9 @@ namespace mctcc
     Gamemanager::Gamemanager()
     {
         // Init SDL
-        gravity = new b2Vec2(0, -2);
         initializeSDL();
+
+        m_scene = new Scene(this, m_renderer, m_window);
     }
 
     Gamemanager::~Gamemanager()
@@ -29,6 +31,8 @@ namespace mctcc
 
     void Gamemanager::run()
     {
+
+        int lol = 0;
 
         // When true, the game ends
         bool quit = false;
@@ -49,19 +53,21 @@ namespace mctcc
 
         int ControllerIndex = 0;
 
+        game_controller = nullptr;
+
         for(int i = 0; i < MaxJoysticks ; i++)
         {
             if (!SDL_IsGameController(i))
                 continue;
             ControllerIndex = i;
-            //game_controler = SDL_GameControllerOpen(ControllerIndex);
-            //controller_used = true;
+            game_controller = SDL_GameControllerOpen(ControllerIndex);
+            controller_used = true;
             break;
         }
         /// ---
 
 
-        if(game_controller == NULL)
+        if(game_controller == nullptr)
             std::cout << "No controller" << std::endl;
         else
             std::cout << "Controller plugged in" << std::endl;
@@ -83,6 +89,7 @@ namespace mctcc
             /// TODO Input
 
             /// TODO Scene Frame
+            m_scene->frame();
 
             // Clear screen and render level
             SDL_RenderClear(m_renderer);
@@ -90,6 +97,18 @@ namespace mctcc
             // Update screen
             SDL_RenderPresent(m_renderer);
         }
+    }
+
+    void Gamemanager::end_current_scene()
+    {
+        delete m_scene;
+        m_scene = nullptr;
+    }
+
+    void Gamemanager::start_new_scene(Scene *scene)
+    {
+        end_current_scene();
+        m_scene = scene;
     }
 
 
@@ -105,8 +124,8 @@ namespace mctcc
                 "Info D Jokes",
                 SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,
-                1000,
-                1000,
+                window_width,
+                window_height,
                 SDL_WINDOW_SHOWN);
 
         if (m_window == nullptr) {
@@ -120,7 +139,7 @@ namespace mctcc
                 std::cout << "SDL could not generate renderer: " << SDL_GetError() << std::endl;
             } else {
         // Set background color for renderer
-                SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 0);
+                SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0);
             }
         }
 
