@@ -8,6 +8,7 @@
 #include <Box2D/Box2D.h>
 #include <SDL.h>
 #include "Gamemanager.hpp"
+#include "Entity.hpp"
 
 namespace mctcc {
     class Gamemanager;
@@ -39,6 +40,9 @@ namespace mctcc {
 
         /// SDL Window pointer
         SDL_Window* o_window;
+
+        /// Player Entity
+        Entity* player;
     };
 
 }

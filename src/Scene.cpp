@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include "Scene.hpp"
+#include "Sprite.hpp"
+#include "Util.hpp"
 
 
 namespace mctcc
@@ -12,6 +14,20 @@ namespace mctcc
     Scene::Scene(Gamemanager* gm, SDL_Renderer *renderer, SDL_Window *window) : o_gm(gm), o_renderer(renderer), o_window(window)
     {
         initializeWorld();
+
+        b2BodyDef definiton;
+        definiton.position.Set(0,10);
+        definiton.angle = 0;
+        definiton.type = b2_dynamicBody;
+        b2FixtureDef fixture;
+        b2PolygonShape box;
+        box.SetAsBox(2,2);
+        fixture.shape = &box;
+        fixture.density = 1;
+
+        Sprite* spr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,500,500), create_rect(0,0,500,500), nullptr);
+
+        player = new Entity(world, &definiton, &fixture, spr);
     }
 
     Scene::~Scene()
@@ -32,7 +48,7 @@ namespace mctcc
 
     void Scene::frame()
     {
-        Scene* new_scene = new Scene(o_gm , o_renderer, o_window);
-        o_gm->start_new_scene(new_scene);
+        player->get_sprite()->render();
+
     }
 }

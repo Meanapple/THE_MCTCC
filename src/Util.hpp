@@ -9,11 +9,10 @@
 #include <iostream>
 
 namespace mctcc {
-    class Util {
         /// Create a SDL_Rect from given coordinates
         SDL_Rect create_rect(int x, int y, int w, int h);
         /// Copies a rect
-        SDL_Rect const copy_rect(SDL_Rect);
+        SDL_Rect copy_rect(SDL_Rect);
         /// Computes a source rect the size of the Texture
         SDL_Rect computeSourceRect(SDL_Texture*);
         /// Loads a Texture from a string
@@ -23,7 +22,6 @@ namespace mctcc {
         std::string print_rect(SDL_Rect* rec);
         /// Prints out a rect
         std::string print_rect(const SDL_Rect* rec);
-    };
 }
 
 #endif //MCTCC_UTIL_HPP

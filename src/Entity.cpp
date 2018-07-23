@@ -5,11 +5,12 @@
 #include "Entity.hpp"
 #include <Box2D/Box2D.h>
 #include <iostream>
+#include "Sprite.hpp"
 
 namespace mctcc
 {
 
-    Entity::Entity(b2World *world, b2BodyDef *b_def, b2FixtureDef* f_def)
+    Entity::Entity(b2World *world, b2BodyDef *b_def, b2FixtureDef* f_def, Sprite* spr) : m_sprite(spr)
     {
         if(world == nullptr || b_def == nullptr || f_def == nullptr)
             std::cout << " Error initializing Entity : nullptr at world / b_def / f_def" << std::endl;
@@ -21,6 +22,10 @@ namespace mctcc
         // Create Body
         m_body = o_world->CreateBody(b_def);
         m_body->CreateFixture(m_fixture);
+
+        m_sprite->set_owner(this);
+
+
     }
 
     Entity::~Entity()
