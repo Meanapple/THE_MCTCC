@@ -3,6 +3,7 @@
 //
 
 #include "Gamemanager.hpp"
+#include "Entity.hpp"
 
 #include <iostream>
 #include <SDL_image.h>
@@ -26,6 +27,71 @@ namespace mctcc
         closeSDL();
     }
 
+    void Gamemanager::run()
+    {
+
+        // When true, the game ends
+        bool quit = false;
+
+        // SDL_Event for mouse and keyboard input
+        SDL_Event e;
+
+        /// FRAME RATE
+        int frame_ticks;
+
+        // Keyboard inputs
+        const Uint8 *currentKeyStates;
+
+        /// ---
+        /// CONTROLLER SUPPORT
+        /// ---
+        int MaxJoysticks = SDL_NumJoysticks();
+
+        int ControllerIndex = 0;
+
+        for(int i = 0; i < MaxJoysticks ; i++)
+        {
+            if (!SDL_IsGameController(i))
+                continue;
+            ControllerIndex = i;
+            //game_controler = SDL_GameControllerOpen(ControllerIndex);
+            //controller_used = true;
+            break;
+        }
+        /// ---
+
+
+        if(game_controller == NULL)
+            std::cout << "No controller" << std::endl;
+        else
+            std::cout << "Controller plugged in" << std::endl;
+
+        // Start main loop and event handling
+        while ( !quit ) {
+
+            // Process events, detect quit signal for window closing
+            while (SDL_PollEvent(&e)) {
+                switch (e.type) {
+                    case SDL_QUIT:
+                        quit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            /// TODO Input
+
+            /// TODO Scene Frame
+
+            // Clear screen and render level
+            SDL_RenderClear(m_renderer);
+
+            // Update screen
+            SDL_RenderPresent(m_renderer);
+        }
+    }
+
 
     void Gamemanager::initializeSDL() {
         // Initialize SDL
@@ -43,14 +109,14 @@ namespace mctcc
                 1000,
                 SDL_WINDOW_SHOWN);
 
-        if (m_window == NULL) {
+        if (m_window == nullptr) {
             std::cout << "SDL window could not be generated: " << SDL_GetError() << std::endl;
         } else {
 
         // Create renderer for the SDL main window
             m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-            if (m_renderer == NULL) {
+            if (m_renderer == nullptr) {
                 std::cout << "SDL could not generate renderer: " << SDL_GetError() << std::endl;
             } else {
         // Set background color for renderer
