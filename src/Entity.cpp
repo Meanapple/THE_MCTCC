@@ -10,7 +10,7 @@
 namespace mctcc
 {
 
-    Entity::Entity(b2World *world, b2BodyDef *b_def, b2FixtureDef* f_def, Sprite* spr) : m_sprite(spr)
+    Entity::Entity(Scene* o_gm, b2World *world, b2BodyDef *b_def, b2FixtureDef* f_def, Sprite* spr) : gm(o_gm), m_sprite(spr)
     {
         if(world == nullptr || b_def == nullptr || f_def == nullptr)
             std::cout << " Error initializing Entity : nullptr at world / b_def / f_def" << std::endl;
@@ -24,12 +24,14 @@ namespace mctcc
         m_body->CreateFixture(m_fixture);
 
         m_sprite->set_owner(this);
-
-
     }
 
     Entity::~Entity()
     {
+        delete gm->get_layermanager()->delete_sprite(m_sprite->get_id(), m_sprite->get_layer());
+        m_sprite = nullptr;
+
         o_world->DestroyBody(m_body);
+        m_body = nullptr;
     }
 }

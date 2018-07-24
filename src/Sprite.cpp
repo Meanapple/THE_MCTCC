@@ -2,15 +2,19 @@
 // Created by jan on 23.07.18.
 //
 
+#include <iostream>
 #include "Sprite.hpp"
 #include "Config.hpp"
 #include "Entity.hpp"
 
 namespace mctcc
 {
+    long Sprite::sprite_static_id = 0;
 
     Sprite::Sprite(SDL_Renderer* rend, SDL_Texture* texture, SDL_Rect target, SDL_Rect source, Entity* o_owner) : m_renderer(rend), m_texture(texture)
     {
+        sprite_id = sprite_static_id++;
+
         owner = nullptr;
 
         m_sourceRect = source;
@@ -20,6 +24,7 @@ namespace mctcc
 
         if(o_owner)
             owner = o_owner;
+
         SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND);
     }
 

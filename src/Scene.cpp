@@ -15,6 +15,8 @@ namespace mctcc
     {
         initializeWorld();
 
+        lm = new LayerManager(o_gm);
+
         b2BodyDef definiton;
         definiton.position.Set(0,10);
         definiton.angle = 0;
@@ -26,8 +28,8 @@ namespace mctcc
         fixture.density = 2;
 
         Sprite* spr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,500,500), create_rect(0,0,500,500), nullptr);
-
-        player = new Entity(world, &definiton, &fixture, spr);
+        lm->add_sprite(spr, 10);
+        player = new Entity(this , world, &definiton, &fixture, spr);
     }
 
     Scene::~Scene()
@@ -48,7 +50,6 @@ namespace mctcc
 
     void Scene::frame()
     {
-        player->get_sprite()->render();
-
+        lm->render();
     }
 }

@@ -9,6 +9,7 @@
 #include <SDL.h>
 #include "Gamemanager.hpp"
 #include "Entity.hpp"
+#include "LayerManager.hpp"
 
 namespace mctcc {
     class Gamemanager;
@@ -23,7 +24,9 @@ namespace mctcc {
         /// One Frame
         void frame();
 
+        /// Getter
         inline SDL_Renderer* get_renderer() {return o_renderer;}
+        inline LayerManager* get_layermanager() { return lm; }
 
     protected:
         /// Gamemanager Pointer
@@ -34,6 +37,9 @@ namespace mctcc {
 
         /// Main World
         b2World* world;
+
+        /// LayerManager
+        LayerManager* lm;
 
         /// SDL Renderer pointer
         SDL_Renderer* o_renderer;
