@@ -86,13 +86,13 @@ namespace mctcc
                 }
             }
 
+            // Clear screen and render level
+            SDL_RenderClear(m_renderer);
+
             /// TODO Input
 
             /// TODO Scene Frame
             m_scene->frame();
-
-            // Clear screen and render level
-            SDL_RenderClear(m_renderer);
 
             // Update screen
             SDL_RenderPresent(m_renderer);

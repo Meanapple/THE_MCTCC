@@ -17,6 +17,8 @@ namespace mctcc {
         Entity(Scene* gm, b2World* world, b2BodyDef* b_def, b2FixtureDef* f_def, Sprite* spr);
         /// Deleting the entity
         ~Entity();
+        /// Called every frame
+        void act();
         /// Get Body
         inline b2Body* get_body(){ return m_body; }
         /// Get Sprite

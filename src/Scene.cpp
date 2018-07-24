@@ -21,15 +21,15 @@ namespace mctcc
         definiton.position.Set(0,10);
         definiton.angle = 0;
         definiton.type = b2_dynamicBody;
-        b2FixtureDef fixture;
-        b2PolygonShape box;
-        box.SetAsBox(2,2);
-        fixture.shape = &box;
-        fixture.density = 2;
+        b2FixtureDef* fixture = new b2FixtureDef();
+        b2PolygonShape* box = new b2PolygonShape();
+        box->SetAsBox(2,2);
+        fixture->shape = box;
+        fixture->density = 2;
 
         Sprite* spr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,500,500), create_rect(0,0,500,500), nullptr);
         lm->add_sprite(spr, 10);
-        player = new Entity(this , world, &definiton, &fixture, spr);
+        player = new Entity(this , world, &definiton, fixture, spr);
     }
 
     Scene::~Scene()
@@ -43,7 +43,7 @@ namespace mctcc
     void Scene::initializeWorld()
     {
         /// Gravity Vector
-        gravity = new b2Vec2(0, -2);
+        gravity = new b2Vec2(0, 10);
         /// Box2D World
         world = new b2World(*gravity);
     }
@@ -51,5 +51,8 @@ namespace mctcc
     void Scene::frame()
     {
         lm->render();
+        player->act();
+
+        world->Step((float32) 1/20, (int32) 8 , (int32) 3 );
     }
 }

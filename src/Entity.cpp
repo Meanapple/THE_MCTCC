@@ -3,9 +3,8 @@
 //
 
 #include "Entity.hpp"
-#include <Box2D/Box2D.h>
 #include <iostream>
-#include "Sprite.hpp"
+#include <SDL.h>
 
 namespace mctcc
 {
@@ -33,5 +32,10 @@ namespace mctcc
 
         o_world->DestroyBody(m_body);
         m_body = nullptr;
+    }
+
+    void Entity::act()
+     {
+        std::cout << " Box2D " <<  m_body->GetPosition().y  << " SDL: << "  << m_sprite->get_target_rect()->y << std::endl;
     }
 }
