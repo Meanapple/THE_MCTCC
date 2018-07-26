@@ -26,11 +26,22 @@ namespace mctcc {
         int entity_type;
     };
 
+    typedef struct premade_map
+    {
+        int tile_w;
+        int tile_h;
+        int map_size_w;
+        int map_size_h;
+        int** ids;
+        std::string tileset_name;
+    };
+
     class TileMap {
     public:
 
-        TileMap(Scene* sc, int tile_width = 64, int tile_height = 64, int map_size_width = 10, int map_size_length = 10, int** ids = NULL,
-            std::string = "../res/unknown.png");
+        static premade_map test_map;
+
+        TileMap(Scene* sc, int id);
         ~TileMap();
 
         void assign_ids(int  amount_width, int amount_height, int** ids);
@@ -46,6 +57,13 @@ namespace mctcc {
         void scale_map_by_screen();
 
     private:
+        /// Create all static premade maps
+        static void initialize_premade_maps();
+        /// Flag that all maps have been created
+        static bool init_done;
+        /// Convert premade_map into actual Map
+        void convert_premade_map(premade_map* pm);
+
         //Tile Size
         int tile_width;
         int tile_height;

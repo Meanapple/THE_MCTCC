@@ -8,27 +8,26 @@
 
 namespace mctcc
 {
+    /// Premade Maps
+    premade_map TileMap::test_map;
+    bool TileMap::init_done = false;
 
-    TileMap::TileMap(Scene* o_sc, int w, int h, int m_w, int m_h, int** ids, std::string tileset) : scene(o_sc) ,
-                                                                                            tile_width(w),
-                                                                                            tile_height(h),
-                                                                                            size_w(m_w),
-                                                                                            size_h(m_h)
+    TileMap::TileMap(Scene* o_sc, int id) : scene(o_sc)
     {
         all_ids = nullptr;
 
-        /// Load Tileset for this Map
-        tile_set = LoadTexture(scene->get_renderer(), tileset);
-        /// Computes how big the tileset is. Now we know how many tiles per row/column there are
-        SDL_Rect temp = computeSourceRect(tile_set);
-        tileset_height = temp.h/h;
-        tileset_width = temp.w/w;
+        if(!init_done)
+            initialize_premade_maps();
 
-        /// Error checking
-        if(tile_set == nullptr)
-            std::cout << "Map Error: No Tileset" << std::endl;
-        if(ids != nullptr)
-            assign_ids(size_w, size_h, ids);
+        switch(id)
+        {
+            case 0:
+            default:
+            {
+                convert_premade_map(&test_map);
+                 break;
+            }
+        }
     }
 
     TileMap::~TileMap()
@@ -41,9 +40,52 @@ namespace mctcc
         }
     }
 
-    void TileMap::render()
+    void TileMap::convert_premade_map(premade_map* pm)
     {
+        /// Load Tileset for this Map
+        tile_set = LoadTexture(scene->get_renderer(), pm->tileset_name);
 
+        /// Computes how big the tileset is. Now we know how many tiles per row/column there are
+        SDL_Rect temp = computeSourceRect(tile_set);
+
+
+        tile_width = pm->tile_w;
+        tile_height = pm->tile_h;
+        size_w = pm->map_size_w;
+        size_h = pm->map_size_h;
+
+        tileset_height = temp.h/size_h;
+        tileset_width = temp.w/size_w;
+
+        assign_ids(size_w, size_h, pm->ids);
+    }
+
+    void TileMap::initialize_premade_maps()
+    {
+        /// Map #0
+        /// Test Map
+        int temp_size = 10;
+
+        int** test_array_1 = new int*[temp_size];
+        for(int i = 0; i < temp_size ; i++)
+        {
+            test_array_1[i] = new int[temp_size];
+            for(int j = 0; j < temp_size; j++)
+            {
+                if(i == 0 || j == 0 || i == temp_size-1 || j == temp_size-1)
+                    test_array_1[i][j] = 7;
+                else
+                    test_array_1[i][j] = 1;
+            }
+        }
+
+        test_map = {16,16,10,10, test_array_1, "../res/InfA_PureTileset.png"};
+
+        init_done = true;
+
+        /// Map #1
+        /// Tutorial
+        /// TODO shit
     }
 
     void TileMap::scale_map_by_screen()
