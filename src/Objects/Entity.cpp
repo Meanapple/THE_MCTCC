@@ -8,11 +8,14 @@
 
 namespace mctcc
 {
+    long Entity::entity_static_id = 0;
 
-    Entity::Entity(Scene* o_gm, b2World *world, b2BodyDef *b_def, b2FixtureDef* f_def, Sprite* spr) : gm(o_gm), m_sprite(spr)
+    Entity::Entity(EntityManager* o_em, b2World *world, b2BodyDef *b_def, b2FixtureDef* f_def, Sprite* spr) : em(o_em), m_sprite(spr)
     {
         if(world == nullptr || b_def == nullptr || f_def == nullptr)
             std::cout << " Error initializing Entity : nullptr at world / b_def / f_def" << std::endl;
+
+        entity_id = entity_static_id++;
 
         // copy pointers
         o_world = world;
@@ -27,7 +30,7 @@ namespace mctcc
 
     Entity::~Entity()
     {
-        delete gm->get_layermanager()->delete_sprite(m_sprite->get_id(), m_sprite->get_layer());
+        delete em->get_scene()->get_layermanager()->delete_sprite(m_sprite->get_id(), m_sprite->get_layer());
         m_sprite = nullptr;
 
         o_world->DestroyBody(m_body);
@@ -35,7 +38,6 @@ namespace mctcc
     }
 
     void Entity::act()
-     {
-        std::cout << " Box2D " <<  m_body->GetPosition().y  << " SDL: << "  << m_sprite->get_target_rect()->y << std::endl;
+    {
     }
 }

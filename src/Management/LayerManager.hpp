@@ -6,6 +6,7 @@
 #define MCTCC_LAYERMANAGER_HPP
 
 #include <set>
+#include "../Objects/Scene.hpp"
 
 namespace mctcc {
     class Gamemanager;
@@ -14,7 +15,7 @@ namespace mctcc {
     class LayerManager {
     public:
         /// Layer Manager keeps track of all Sprites and orders them to render according to their layer
-        LayerManager(Gamemanager* o_gm);
+        LayerManager(Scene* scene);
         /// Deconstructor
         ~LayerManager();
         /// Renders all layers from min to max bound, -1 for all
@@ -28,7 +29,7 @@ namespace mctcc {
 
     private:
         /// Gamemanager Pointer
-        Gamemanager* gm;
+        Scene* scene;
         /// Set of 100 Layers
         std::set<Sprite*>* layer_list;
     };

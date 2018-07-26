@@ -8,7 +8,7 @@
 #include <SDL.h>
 
 #include <Box2D/Box2D.h>
-#include "Scene.hpp"
+#include "../Objects/Scene.hpp"
 
 namespace mctcc {
     class Scene;

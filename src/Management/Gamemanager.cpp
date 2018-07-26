@@ -4,7 +4,7 @@
 
 #include "Config.hpp"
 #include "Gamemanager.hpp"
-#include "Entity.hpp"
+#include "../Objects/Entity.hpp"
 
 #include <iostream>
 #include <SDL_image.h>

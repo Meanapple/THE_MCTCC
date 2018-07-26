@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Sprite.hpp"
-#include "Config.hpp"
+#include "../Management/Config.hpp"
 #include "Entity.hpp"
 
 namespace mctcc

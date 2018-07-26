@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Wall -g")
 
 # Setup sources
 set(MCTCC_SOURCES
-        src/Gamemanager.cpp)
+        src/Management/Gamemanager.cpp)
 
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
@@ -39,7 +39,7 @@ find_package(BOX2D REQUIRED)
 include_directories(${BOX2D_INCLUDE_DIR})
 
 # Build executable
-add_executable(mctcc src/main.cpp ${MGTGG_SOURCES} src/Gamemanager.cpp src/Gamemanager.hpp src/Entity.cpp src/Entity.hpp src/Scene.cpp src/Scene.hpp src/Config.cpp src/Config.hpp src/Util.cpp src/Util.hpp src/Sprite.cpp src/Sprite.hpp src/LayerManager.cpp src/LayerManager.hpp)
+add_executable(mctcc src/Management/main.cpp ${MGTGG_SOURCES} src/Management/Gamemanager.cpp src/Management/Gamemanager.hpp src/Objects/Entity.cpp src/Objects/Entity.hpp src/Objects/Scene.cpp src/Objects/Scene.hpp src/Management/Config.cpp src/Management/Config.hpp src/Management/Util.cpp src/Management/Util.hpp src/Objects/Sprite.cpp src/Objects/Sprite.hpp src/Management/LayerManager.cpp src/Management/LayerManager.hpp src/Management/EntityManager.cpp src/Management/EntityManager.hpp src/Management/TileMap.cpp src/Management/TileMap.hpp)
 target_link_libraries(mctcc ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY} ${SDL2_TTF_LIBRARY} ${SDL2_MIXER_LIBRARY})
 target_link_libraries(mctcc ${BOX2D_LIBRARY})
 target_link_libraries(mctcc m)

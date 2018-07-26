@@ -5,11 +5,11 @@
 #include <iostream>
 #include "LayerManager.hpp"
 #include "Config.hpp"
-#include "Sprite.hpp"
+#include "../Objects/Sprite.hpp"
 
 namespace mctcc
 {
-    LayerManager::LayerManager(Gamemanager *o_gm) : gm(o_gm)
+    LayerManager::LayerManager(Scene *o_sc) : scene(o_sc)
     {
         layer_list = new std::set<Sprite*>[100];
     }
