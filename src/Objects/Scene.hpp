@@ -32,6 +32,7 @@ namespace mctcc {
         /// Getter
         inline SDL_Renderer* get_renderer() {return o_renderer;}
         inline LayerManager* get_layermanager() { return lm; }
+        inline EntityManager* get_entitymanager() { return em; }
 
     protected:
         /// Gamemanager Pointer

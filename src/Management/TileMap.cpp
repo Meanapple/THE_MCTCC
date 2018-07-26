@@ -119,7 +119,7 @@ namespace mctcc
 
                 //Create Sprite
                 Sprite* temp  = new Sprite(scene->get_renderer(), tile_set, target,source );
-                scene->get_layermanager()->add_sprite(temp, 10);
+                scene->get_layermanager()->add_sprite(temp, 0);
             }
         }
     }

@@ -25,6 +25,7 @@ namespace mctcc
         m_body = o_world->CreateBody(b_def);
         m_body->CreateFixture(m_fixture);
 
+        if(m_sprite)
         m_sprite->set_owner(this);
     }
 

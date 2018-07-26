@@ -22,6 +22,7 @@ namespace mctcc
         m_map->scale_map_by_screen();
         m_map->generate_map();
 
+        /// Vornberger
         b2BodyDef definiton;
         definiton.position.Set(0,10);
         definiton.angle = 0;
@@ -31,11 +32,27 @@ namespace mctcc
         box->SetAsBox(2,2);
         fixture->shape = box;
         fixture->density = 2;
+        /// Ground
+        /// TODO Sprite und Physics sind nicht zusammen
+        b2BodyDef grounddef;
+        grounddef.position.Set(0, 200);
+        grounddef.angle = 0;
+        grounddef.type = b2_staticBody;
+        b2FixtureDef* groundfix = new b2FixtureDef();
+        b2PolygonShape* groundbox = new b2PolygonShape();
+        groundbox->SetAsBox(100,100);
+        groundfix->shape = groundbox;
+        groundfix->density = 2;
 
-        Sprite* spr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,500,500), create_rect(0,0,500,500), nullptr);
+        Sprite* spr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,16,16), create_rect(0,0,500,500), nullptr);
+        Sprite* groundspr = new Sprite(o_renderer, LoadTexture(o_renderer, "../res/vornberger.png"), create_rect(16,16,100,100), create_rect(0,0,500,500), nullptr);
         lm->add_sprite(spr, 10);
+        lm->add_sprite(groundspr, 2);
+
+        Entity* ground = new Entity(em, world, &grounddef, groundfix, groundspr);
         Entity* player = new Entity(em , world, &definiton, fixture, spr);
         em->add_player(player);
+        em->add_entity(ground);
     }
 
     Scene::~Scene()
