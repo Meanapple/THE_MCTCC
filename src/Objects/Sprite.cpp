@@ -6,6 +6,7 @@
 #include "Sprite.hpp"
 #include "../Management/Config.hpp"
 #include "Entity.hpp"
+#include "../Management/Util.hpp"
 
 namespace mctcc
 {
@@ -20,6 +21,7 @@ namespace mctcc
         m_sourceRect = source;
         m_targetRect = target;
         m_scale = 1;
+        m_center = 0;
         m_globalScaleRect = target;
 
         if(o_owner)
@@ -35,6 +37,8 @@ namespace mctcc
             return;
         ///Calculate Position
         calculate_position();
+        if(owner)
+        std::cout << " Scaled Rect " << print_rect(&m_globalScaleRect) << std::endl ;
         /// Apply on Renderer
         SDL_RenderCopyEx(
                 m_renderer,
@@ -49,8 +53,9 @@ namespace mctcc
         /// Set x and y Position to Entity Position
         if(owner)
         {
-            m_targetRect.x = owner->get_body()->GetPosition().x;
-            m_targetRect.y = owner->get_body()->GetPosition().y;
+            m_targetRect.x = owner->get_body()->GetPosition().x * 10;
+            m_targetRect.y = owner->get_body()->GetPosition().y * 10;
+            std::cout << " Normal Rect " << print_rect(&m_targetRect) << std::endl;
         }
 
         /// Scale all attributes by Local and Global Scale

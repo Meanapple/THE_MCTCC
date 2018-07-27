@@ -26,7 +26,7 @@ namespace mctcc
         m_body->CreateFixture(m_fixture);
 
         if(m_sprite)
-        m_sprite->set_owner(this);
+            m_sprite->set_owner(this);
     }
 
     Entity::~Entity()
@@ -40,5 +40,6 @@ namespace mctcc
 
     void Entity::act()
     {
+
     }
 }

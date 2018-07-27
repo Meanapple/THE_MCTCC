@@ -24,23 +24,23 @@ namespace mctcc
 
         /// Vornberger
         b2BodyDef definiton;
-        definiton.position.Set(0,10);
+        definiton.position.Set(2,1);
         definiton.angle = 0;
         definiton.type = b2_dynamicBody;
         b2FixtureDef* fixture = new b2FixtureDef();
         b2PolygonShape* box = new b2PolygonShape();
-        box->SetAsBox(2,2);
+        box->SetAsBox(1,1);
         fixture->shape = box;
         fixture->density = 2;
         /// Ground
         /// TODO Sprite und Physics sind nicht zusammen
         b2BodyDef grounddef;
-        grounddef.position.Set(0, 200);
+        grounddef.position.Set(0, 10);
         grounddef.angle = 0;
         grounddef.type = b2_staticBody;
         b2FixtureDef* groundfix = new b2FixtureDef();
         b2PolygonShape* groundbox = new b2PolygonShape();
-        groundbox->SetAsBox(100,100);
+        groundbox->SetAsBox(10,1);
         groundfix->shape = groundbox;
         groundfix->density = 2;
 
